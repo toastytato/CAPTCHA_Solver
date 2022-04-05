@@ -17,11 +17,15 @@ def home():
 def process(payload):
     res = requests.get("https://www.google.com/recaptcha/api2/payload?p=" +
                       payload, stream=True)
+    response = {}
     if res.status_code == 200:
         bytes_im = BytesIO(res.content)
         cv_im = cv2.cvtColor(np.array(Image.open(bytes_im)), cv2.COLOR_RGB2BGR)
-        print(cv_im)
-        return({"data":str(cv_im)})
+        response["data"] = str(cv_im)
     else:
-        print("ruh-oh")
-        return("ruh-oh")
+        response["error"] = "cannot find payload..."
+    return response
+
+if __name__ == '__main__':
+    # Threaded option to enable multiple instances for multiple user access support
+    app.run(threaded=True, port=5000)
