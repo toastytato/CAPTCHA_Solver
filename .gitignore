@@ -1,1 +1,5 @@
 /.venv
+/archive
+__pycache__
+archive.zip
+.vscode
