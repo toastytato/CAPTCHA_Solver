@@ -14,7 +14,12 @@ app = Flask(__name__)
 def home():
     return "<h1> CAPTCHA_Solver</h1>"
 
-
+LABELS = [
+    'Bicycle', 'Boat', 'Bridge', 'Bus', 'Car', 'Chimney', 'Crosswalk',
+    'Hydrant', 'Motorcycle', 'Mountain', 'Palm', 'Stairs', 'Taxi',
+    'Tow Truck', 'Traffic Light', 'Traffic Sign', 'Truck'
+]
+    
 @app.route("/process/<payload>", methods=['GET'])
 def process(payload):
     res = requests.get("https://www.google.com/recaptcha/api2/payload?p=" +
@@ -31,11 +36,16 @@ def process(payload):
         model = load_model("test_model.h5")
         
         ### get and interpret predictions ###
-        predictions = model.predict(image_array)
+        image_scores = model.predict(image_array)
+        predictions = [sorted(zip(LABELS, scores), key=lambda k: k[1], reverse=True) for scores in image_scores]
         
         ### craft response ###
         for i,prediction in enumerate(predictions):
             response[f"image_{i}"] = str(prediction)
+        
+        ### debug ###
+        for i,prediction in enumerate(predictions):
+           print(str(prediction[0]))
 
         response["success"] = "successful image load..."
     else:
@@ -57,15 +67,20 @@ def test():
         model = load_model("test_model.h5")
         
         ### get and interpret predictions ###
-        predictions = model.predict(image_array)
+        image_scores = model.predict(image_array)
+        predictions = [sorted(zip(LABELS, scores), key=lambda k: k[1], reverse=True) for scores in image_scores]
         
         ### craft response ###
         for i,prediction in enumerate(predictions):
             response[f"image_{i}"] = str(prediction)
-
-        response["success"] = "successful image load..."
+        
+        ### debug ###
+        for i,prediction in enumerate(predictions):
+           print(str(prediction[0]))
+            
+        response["response"] = 200
     else:
-        response["error"] = "cannot find payload..."
+        response["response"] = 404
     return response
     
 def interpret_collage(image_collage : np.ndarray) -> list:
