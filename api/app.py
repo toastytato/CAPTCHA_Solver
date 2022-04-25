@@ -1,10 +1,10 @@
 import requests
-import cv2
 import numpy as np
+
 from io import BytesIO
-from PIL import Image
-from flask import Flask
 from itertools import product
+from flask import Flask
+from PIL import Image
 from tensorflow.keras.models import load_model
 
 """ FLASK APPLICATION """
