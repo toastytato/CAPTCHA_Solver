@@ -3,7 +3,7 @@ import numpy as np
 
 from io import BytesIO
 from itertools import product
-from flask import Flask
+from flask import Flask, jsonify
 from PIL import Image
 from tensorflow.keras.models import load_model
 
@@ -25,6 +25,7 @@ def process(payload):
     res = requests.get("https://www.google.com/recaptcha/api2/payload?p=" +
                       payload, stream=True)
     response = {}
+    response.headers.add("Access-Control-Allow-Origin", "*")
     if res.status_code == 200:
         
         ### load images from response ###
@@ -44,12 +45,15 @@ def process(payload):
             response[f"image_{i}"] = str(prediction)
         
         ### debug ###
-        for i,prediction in enumerate(predictions):
-           print(str(prediction[0]))
-
-        response["success"] = "successful image load..."
+        # for i,prediction in enumerate(predictions):
+        #    print(str(prediction[0]))
+            
+        response["response"] = 200
     else:
-        response["error"] = "cannot find payload..."
+        response["response"] = 404
+    
+    response = jsonify(response)
+    response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
 @app.route("/test/bicycle", methods=['GET'])
@@ -75,12 +79,15 @@ def test():
             response[f"image_{i}"] = str(prediction)
         
         ### debug ###
-        for i,prediction in enumerate(predictions):
-           print(str(prediction[0]))
+        # for i,prediction in enumerate(predictions):
+        #    print(str(prediction[0]))
             
         response["response"] = 200
     else:
         response["response"] = 404
+    
+    response = jsonify(response)
+    response.headers.add("Access-Control-Allow-Origin", "*")
     return response
     
 def interpret_collage(image_collage : np.ndarray) -> list:
