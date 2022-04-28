@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html style="height: 600px; width: 500px">
+  <head>
+    <title>CAPTCHA-Solver</title>
+    <meta charset="utf-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+      td {
+        margin: 3;
+      }
+    </style>
+  </head>
+  <body class="h-100 w-100 bg-secondary">
+    <div class="d-flex flex-column justify-content-evenly align-items-center h-100 w-100">
+      <h1 class="text-light"><strong>reCAPTCHA Solver</strong></h1>
+      <div class="btn-group d-flex flex-row flex-wrap justify-content-center align-content-start align-items-center w-75" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="Bicycle" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2 rounded-0" for="Bicycle">Bicycle</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="Boat" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="Boat">Boat</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="Bridge" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="Bridge">Bridge</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="Bus" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="Bus">Bus</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="Car" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="Car">Car</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="Chimney" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="Chimney">Chimney</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="Crosswalk" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="Crosswalk">Crosswalk</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="Hydrant" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="Hydrant">Hydrant</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="Motorcycle" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="Motorcycle">Motorcycle</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="Mountain" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="Mountain">Mountain</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="Palm" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="Palm">Palm</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="Stairs" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="Stairs">Stairs</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="Taxi" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="Taxi">Taxi</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="TowTruck" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="TowTruck">Tow Truck</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="TrafficLight" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="TrafficLight">Traffic Light</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="TrafficSign" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2" for="TrafficSign">Traffic Sign</label>
+        <input type="radio" class="btn-check" name="btnGroupRadio" id="Truck" autocomplete="off" checked="">
+        <label class="btn btn-dark p-2 rounded-0" for="Truck">Truck</label>
+      </div>
+      <div class="form-floating m-2 w-75">
+        <textarea class="form-control h-100 bg-dark text-light" placeholder="Enter reCAPTCHA link" id="captcha-link"></textarea>
+        <label class="text-light" for="captcha-link">Copy and Paste reCAPTCHA Image Link Here!</label>
+      </div>
+      <button id="fetch-test-data" type="button" class="btn btn-dark w-50">
+        <h3 class="m-1">Solve!</h3>
+        <div id="spinner" class="spinner-border spinner-border-sm d-none" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </button>
+      <table class="table table-dark table-bordered text-center w-75 m-2">
+        <tbody>
+          <tr>
+            <td id="image-0"><h1>❓</h1></td>
+            <td id="image-1"><h1>❓</h1></td>
+            <td id="image-2"><h1>❓</h1></td>
+          </tr>
+          <tr>
+            <td id="image-3"><h1>❓</h1></td>
+            <td id="image-4"><h1>❓</h1></td>
+            <td id="image-5"><h1>❓</h1></td>
+          </tr>
+          <tr>
+            <td id="image-6"><h1>❓</h1></td>
+            <td id="image-7"><h1>❓</h1></td>
+            <td id="image-8"><h1>❓</h1></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
