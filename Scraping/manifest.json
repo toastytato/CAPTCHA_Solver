@@ -4,7 +4,6 @@
     "description": "reCAPTCHAv2 Solver",
     "manifest_version": 3,
     "author": "",
-    "permissions": ["declarativeContent", "activeTab", "tabs", "downloads", "*://*/*"],
     "action":{
         "default_popup": "index.html",
         "default_title": "CAPTCHA-Solver"

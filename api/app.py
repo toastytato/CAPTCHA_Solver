@@ -3,16 +3,16 @@ import numpy as np
 
 from io import BytesIO
 from itertools import product
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from PIL import Image
 from tensorflow.keras.models import load_model
 
 """ FLASK APPLICATION """
-app = Flask(__name__)
+app = Flask(__name__, template_folder=".")
 
 @app.route("/", methods=['GET'])
 def home():
-    return "<h1> CAPTCHA_Solver</h1>"
+    return render_template('index.html')
 
 LABELS = [
     'Bicycle', 'Boat', 'Bridge', 'Bus', 'Car', 'Chimney', 'Crosswalk',
@@ -25,7 +25,6 @@ def process(payload):
     res = requests.get("https://www.google.com/recaptcha/api2/payload?p=" +
                       payload, stream=True)
     response = {}
-    response.headers.add("Access-Control-Allow-Origin", "*")
     if res.status_code == 200:
         
         ### load images from response ###
@@ -38,11 +37,11 @@ def process(payload):
         
         ### get and interpret predictions ###
         image_scores = model.predict(image_array)
-        predictions = [sorted(zip(LABELS, scores), key=lambda k: k[1], reverse=True) for scores in image_scores]
+        predictions = [{LABELS[i]:str(scores[i]) for i in range(0, len(LABELS))} for scores in image_scores]
         
         ### craft response ###
         for i,prediction in enumerate(predictions):
-            response[f"image_{i}"] = str(prediction)
+            response[f"image_{i}"] = prediction
         
         ### debug ###
         # for i,prediction in enumerate(predictions):
@@ -72,11 +71,11 @@ def test():
         
         ### get and interpret predictions ###
         image_scores = model.predict(image_array)
-        predictions = [sorted(zip(LABELS, scores), key=lambda k: k[1], reverse=True) for scores in image_scores]
+        predictions = [{LABELS[i]:str(scores[i]) for i in range(0, len(LABELS))} for scores in image_scores]
         
         ### craft response ###
         for i,prediction in enumerate(predictions):
-            response[f"image_{i}"] = str(prediction)
+            response[f"image_{i}"] = prediction
         
         ### debug ###
         # for i,prediction in enumerate(predictions):
