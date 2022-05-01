@@ -33,7 +33,7 @@ def process(payload):
         image_array = interpret_collage(cv_im)
         
         ### load model ###
-        model = load_model("test_model.h5")
+        model = load_model("transfer_model.h5")
         
         ### get and interpret predictions ###
         image_scores = model.predict(image_array)
@@ -67,7 +67,7 @@ def test():
         image_array = interpret_collage(cv_im)
         
         ### load model ###
-        model = load_model("test_model.h5")
+        model = load_model("transfer_model.h5")
         
         ### get and interpret predictions ###
         image_scores = model.predict(image_array)
