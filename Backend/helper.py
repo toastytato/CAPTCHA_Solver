@@ -18,7 +18,7 @@ def get_formatted_images(path, cnt):
         # if len(img.shape) > 2:
         #     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        h, w = img.shape
+        h, w, d = img.shape
         min_dim = min(h, w)
         img = img[0:min_dim, 0:min_dim]
 
